@@ -69,15 +69,8 @@ function sendJSONXMLHTTPRequest(http_method, url, objects, callback) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
                     if (url === "/world" || url === "/clear"){
-                        //  const json_response = JSON.parse(xhr.responseText);
-                        // //  console.log(typeof(json_response));
-                        // world = json_response;
                         callback(JSON.parse(xhr.responseText));
                     }
-                   
-                    // console.log(typeof(json_response));
-                    // console.log(json_response);
-                    // console.log("***************", response);
                 }
             } 
             catch(e) {
@@ -135,7 +128,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
+	fillStyle = "#BDBDBD";
     // fillStyle = "white";
 	fillRect(0,0,W,H);
     }
@@ -190,9 +183,6 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
-
-    console.log(entity, data);
-
     //XXX: Send a XHTML Request that updates the entity you just  modified!
     sendJSONXMLHTTPRequest('PUT', `/entity/${entity}`, world[entity], null);
 
@@ -318,8 +308,9 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
+    drawFrame();
     sendJSONXMLHTTPRequest('GET', '/world', null, worldCallback);
-    renderFrame();
+    drawNextFrame();
 }
 
 function clear_canvas(){
