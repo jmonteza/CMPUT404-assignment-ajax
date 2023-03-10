@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Copyright 2013 Abram Hindle
+# Copyright 2013 Abram Hindle, 2023 Justin Monteza
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -88,8 +88,7 @@ def update(entity):
 
     json_request = flask_post_json()
 
-    for key, value in json_request.items():
-        myWorld.update(entity, key, value)
+    myWorld.set(entity, json_request)
 
     if request.method == "PUT":
         return myWorld.get(entity)

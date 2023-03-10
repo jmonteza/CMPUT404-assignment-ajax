@@ -6,7 +6,7 @@
     <meta content='width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="license" content="
-        Copyright 2013 Abram Hindle
+        Copyright 2013 Abram Hindle, 2023 Justin Monteza
         
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -313,8 +313,7 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour': selected_color,
-                          'radius': stroke_width});
+    addEntityWithoutName({'x':x,'y':y,'colour': selected_color, 'radius': stroke_width});
 });
 
 
@@ -349,10 +348,6 @@ function switch_custom_color(element){
 }
 
 function switch_color(element){
-    
-    // currently_selected = document.getElementsByClassName("active");
-    // currently_selected.classList.remove("active");
-
 
     selected_color = element.style.background;
     
@@ -384,6 +379,13 @@ function get_initial_stroke(){
     let thickness_label = document.getElementById("thickness-label");
     thickness_label.innerText = "Thickness (" + element[0].value + "px)";
 }
+
+function windowResize() {
+  W = canvas.width = window.innerWidth - 6;
+  H = canvas.height = window.innerHeight - 50;
+};
+
+window.addEventListener('resize', windowResize);
 
 get_initial_stroke();
 // 30 frames per second
