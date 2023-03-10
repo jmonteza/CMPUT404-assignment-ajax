@@ -25,7 +25,7 @@
   </head> 
   <body bgcolor="white" height="100%" width="100%"> 
     
-    <h1>Draw with Canvas and AJAX</h1>
+    <h1 id="header">Draw with Canvas and AJAX</h1>
     
     <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas>
     
@@ -329,6 +329,9 @@ function switch_custom_color(element){
         }
     }
 
+    header = document.getElementById("header");
+    header.style.color = selected_color;
+
 
 }
 
@@ -349,6 +352,9 @@ function switch_color(element){
             other.classList.remove("active");
         }
     }
+
+    header = document.getElementById("header");
+    header.style.color = selected_color;
 
 }
 
