@@ -63,3 +63,7 @@ Author URL: https://stackoverflow.com/users/398844/torben  <br />
 Title: Parsing JSON from XmlHttpRequest.responseJSON <br />
 Resource URI: https://stackoverflow.com/a/8416963/11849713 <br />
 
+Author: BananaCoding <br />
+Author URL: https://www.youtube.com/@BananaCoding <br />
+Title: CANVAS JavaScript Drawing App 🎨 | Draw ● Undo ● Erase ● Colors | Full HTML5 Canvas App Tutorial <br />
+Resource URI: https://www.youtube.com/watch?v=wCwKkT1P7vY <br />
