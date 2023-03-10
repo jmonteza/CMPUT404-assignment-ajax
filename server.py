@@ -79,9 +79,9 @@ def hello():
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
     '''update the entities via this interface'''
-    print("******************")
+    # print("******************")
     json_request = flask_post_json()
-    print(type(json_request))
+    # print(type(json_request))
 
     for key, value in json_request.items():
         myWorld.update(entity, key, value)
@@ -105,7 +105,7 @@ def get_entity(entity):
 def clear():
     '''Clear the world out!'''
     myWorld.clear()
-    print("CLEARED!!!!!!!")
+    # print("CLEARED!!!!!!!")
     return myWorld.world()
 
 if __name__ == "__main__":

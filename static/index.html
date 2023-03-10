@@ -64,9 +64,10 @@ function sendJSONXMLHTTPRequest(http_method, url, objects, callback) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
                     if (url === "/world" || url === "/clear"){
-                         const json_response = JSON.parse(xhr.responseText);
-                        //  console.log(typeof(json_response));
-                        world = json_response;
+                        //  const json_response = JSON.parse(xhr.responseText);
+                        // //  console.log(typeof(json_response));
+                        // world = json_response;
+                        callback(JSON.parse(xhr.responseText));
                     }
                    
                     // console.log(typeof(json_response));
@@ -85,11 +86,21 @@ function sendJSONXMLHTTPRequest(http_method, url, objects, callback) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Accept', 'application/json');
     // Remember to use application/json !
-    xhr.send(JSON.stringify(objects));
+    if (http_method == "PUT" || http_method == "POST"){
+        xhr.send(JSON.stringify(objects));
+    } else {
+        xhr.send();
+    }
+
 }
 
 
 world = {};
+
+function worldCallback(data){
+    // const json_response = JSON.parse(data);
+    world = data;
+}
 
 //XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
@@ -304,7 +315,7 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    sendJSONXMLHTTPRequest('GET', '/world', null, null);
+    sendJSONXMLHTTPRequest('GET', '/world', null, worldCallback);
     // drawFrame();
     renderFrame();
 
@@ -312,8 +323,8 @@ function update() {
 }
 
 function clear_canvas(){
-    console.log("Clear!!!");
-    sendJSONXMLHTTPRequest('POST', '/clear', null, null);
+    // console.log("Clear!!!");
+    sendJSONXMLHTTPRequest('POST', '/clear', null, worldCallback);
 }
 
 function switch_custom_color(element){
