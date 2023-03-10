@@ -27,7 +27,7 @@
     
    <div class="flex-header">
  
-  <img src="https://cdn-icons-png.flaticon.com/512/1158/1158164.png" width="50" height="50">
+  <img src="paint.png" width="50" height="50">
     <h1 id="header">Draw with Canvas and AJAX</h1>
          
    </div>
@@ -106,12 +106,11 @@ function drawCircle(context,entity) {
         lineWidth = stroke_width;
         var x = entity["x"];
         var y = entity["y"];
-        //moveTo(x,y);
         fillStyle = entity["colour"];
-        // fill();
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
-        fill();                                
+        fill(); 
+        stroke();                               
     }
 }
 
