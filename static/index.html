@@ -23,7 +23,12 @@
     <script src="json2.js"></script>
   </head> 
   <body bgcolor="black" height="100%" width="100%"> 
-    <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas> 
+    <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas>
+    
+
+    <button onclick="clear_canvas()">Clear Screen</button> 
+
+
     <script>
 var canvas = document.getElementById('c');
 var host = window.location.host;
@@ -32,7 +37,7 @@ var W = canvas.width  = window.innerWidth-6;
 var H = canvas.height = window.innerHeight-50;
 
 
-function sendJSONXMLHTTPRequest(url, objects, callback) {
+function sendJSONXMLHTTPRequest(http_method, url, objects, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState==4) {
@@ -40,6 +45,15 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                 if (xhr.status==200) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
+                    if (url === "/world" || url === "/clear"){
+                         const json_response = JSON.parse(xhr.responseText);
+                        //  console.log(typeof(json_response));
+                        world = json_response;
+                    }
+                   
+                    // console.log(typeof(json_response));
+                    // console.log(json_response);
+                    // console.log("***************", response);
                 }
             } 
             catch(e) {
@@ -48,8 +62,12 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
         }
     };
     //XXX: POST to a URL
+    xhr.open(http_method, url, true);
     //XXX: set the mimetype and the accept headers!
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Accept', 'application/json');
     // Remember to use application/json !
+    xhr.send(JSON.stringify(objects));
 }
 
 
@@ -64,9 +82,10 @@ function drawCircle(context,entity) {
         var y = entity["y"];
         //moveTo(x,y);
         fillStyle = entity["colour"];
+        // fill();
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
-        stroke();                                
+        fill();                                
     }
 }
 
@@ -137,7 +156,11 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
+
+    console.log(entity, data);
+
     //XXX: Send a XHTML Request that updates the entity you just  modified!
+    sendJSONXMLHTTPRequest('PUT', `/entity/${entity}`, world[entity], null);
 
 }
 
@@ -262,12 +285,21 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    drawFrame();
+    sendJSONXMLHTTPRequest('GET', '/world', null, null);
+    // drawFrame();
+    renderFrame();
+
+
 }
 
-// 30 frames per second
-setInterval( update, 1000/30.0);
+function clear_canvas(){
+    console.log("Clear!!!");
+    sendJSONXMLHTTPRequest('POST', '/clear', null, null);
+}
 
+// 60 frames per second
+setInterval( update, 1000/30.0);
+// setInterval(update, 0);
 
 
     </script>
