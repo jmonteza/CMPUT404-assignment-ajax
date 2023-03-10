@@ -90,8 +90,7 @@ def update(entity):
 
     myWorld.set(entity, json_request)
 
-    if request.method == "PUT":
-        return myWorld.get(entity)
+    return myWorld.get(entity)
 
 
 @app.route("/world", methods=['POST', 'GET'])
