@@ -328,8 +328,8 @@ function update() {
 }
 
 function clear_canvas(){
-    // console.log("Clear!!!");
     sendJSONXMLHTTPRequest('POST', '/clear', null, worldCallback);
+    clearFrame();
 }
 
 function switch_custom_color(element){
