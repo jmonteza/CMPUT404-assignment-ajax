@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Copyright 2013 Abram Hindle, 2023 Justin Monteza
-#
+# Copyright 2013 Abram Hindle
+# Copyright 2023 Justin Monteza
+# 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -79,7 +80,7 @@ def flask_post_json():
 @app.route("/")
 def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
-    return redirect("/static/index.html", code=302)
+    return redirect("/static/index.html")
 
 
 @app.route("/entity/<entity>", methods=['POST', 'PUT'])
